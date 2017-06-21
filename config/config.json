@@ -1,0 +1,10 @@
+{
+  "conn":{
+    "username":"root",
+    "password":"5201314",
+    "database":"vege",
+    "host":"localhost",
+    "dialect":"mysql",
+    "port":"3306"
+  }
+}

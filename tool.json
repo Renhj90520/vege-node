@@ -1,0 +1,38 @@
+// {
+//     "user_id": "001",
+//     "user_pwd": "123456",
+//     "user_name": "张三",
+//     "gender": "0",
+//     "department": "001"
+// }
+{
+    "prj_code": "",
+    "prj_name": "项目名称",
+    "prj_descript": "项目描述",
+    "begin_date": "2017-03-15",
+    "plan_finish_date": "2017-03-15",
+    "level": 0,
+    "parent_id": "12",
+    "top_parent_id": "10",
+    "progress": "0",
+    "create_user_id": "001",
+    "managers": "001,002",
+    "participants": "003,004,005",
+    "accessories":[{"file_name":"test.txt","path":"public\\upload\\20170321080838380.txt"}]
+}
+// {
+//     "project_id": 10,
+//     "title": "主题",
+//     "user_id": "001",
+//     "content": "内容"
+// }
+// {
+// "dept_code":"016",
+// "dept_name":"test00001",
+// "parent_code":"013"
+// }
+// {
+//     "dis_id": "2",
+//     "content": "内容",
+//     "user_id": "001"
+// }
