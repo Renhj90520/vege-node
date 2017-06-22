@@ -26,8 +26,8 @@ exports.getAllProducts = function (req, res) {
         condition.offset = (index - 1) * perPage;
     }
 
-    condition.include = [{ model: models.pictures, require: false }];
-    models.products.hasMany(models.pictures);
+    condition.include = [{ model: models.pictures, as: 'Pictures', require: false }];
+    models.products.hasMany(models.pictures, { as: 'Pictures' });
     models.products.findAndCountAll(condition)
         .then(function (products) {
             res.json(buildResult("获取成功", { count: products.count, items: products.rows }, 1));
@@ -38,8 +38,8 @@ exports.getAllProducts = function (req, res) {
 
 exports.getProduct = function (req, res) {
     var id = req.params.id;
-    models.products.hasMany(models.pictures);
-    models.products.findOne({ where: { id: id }, include: [{ model: models.pictures, require: false }] })
+    models.products.hasMany(models.pictures, { as: 'Pictures' });
+    models.products.findOne({ where: { Id: id }, include: [{ model: models.pictures, as: 'Pictures', require: false }] })
         .then(function (product) {
             res.json(buildResult("获取成功", { items: [product] }, 1));
         }).caught(function (err) {

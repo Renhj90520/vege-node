@@ -12,7 +12,7 @@ exports.getAllProductInOrder = function (req, res) {
     var end = req.query.end;
     var noshowRemove = req.query.noshowRemove;
 
-    var sqlStr = 'select o.id,a.area,o.canceltime,o.createtime,a.name,o.openid,a.phone,a.province,o.state,a.street,o.deliverycharge from orders o left join addresses a on a.id=o.addressid';
+    var sqlStr = 'select o.Id,Area,o.CancelTime,o.CreateTime,a.Name,o.OpenId,a.Phone,a.Province,o.State,a.Street,o.DeliveryCharge from orders o left join addresses a on a.id=o.addressid';
     var countStr = 'select count(*) from orders o inner join addresses a on a.id=o.addressid'
     sqlStr += " where 1=1 ";
     countStr += " where 1=1 ";
@@ -60,19 +60,19 @@ exports.getAllProductInOrder = function (req, res) {
                 .then(function (items) {
 
                     var count = 0;
-                    var productStr = 'select p.id,p.categoryid,oi.count,p.description,p.name,oi.price,p.state,p.step,p.totalcount,p.unitid,p.unitname from orderitems oi left join products p on  p.id=oi.productid where oi.orderid=:oid';
+                    var productStr = 'select p.Id,p.CategoryId,oi.Count,p.Description,p.Name,oi.Price,p.State,p.Step,p.TotalCount,p.UnitId,p.UnitName from orderitems oi left join products p on  p.id=oi.productid where oi.orderid=:oid';
                     items.forEach(function (item) {
-                        var innerreplace = { oid: item.id };
+                        var innerreplace = { oid: item.Id };
                         sequelize.query(productStr, { replacements: innerreplace, type: sequelize.QueryTypes.SELECT })
                             .then(function (products) {
                                 var ic = 0;
                                 products.forEach(function (pro) {
-                                    models.pictures.findAll({ where: { ProductId: pro.id } })
+                                    models.pictures.findAll({ where: { ProductId: pro.Id } })
                                         .then(function (pictures) {
-                                            pro.pictures = pictures;
+                                            pro.Pictures = pictures;
                                             ic++;
                                             if (ic === products.length) {
-                                                item.products = products;
+                                                item.Products = products;
                                                 count++;
                                                 if (count === items.length) {
                                                     res.json(buildResult("获取成功", { count: totalcount, items: items }, 1));
@@ -81,7 +81,7 @@ exports.getAllProductInOrder = function (req, res) {
                                         }).caught(function (err) {
                                             ic++;
                                             if (ic === products.count) {
-                                                item.products = products;
+                                                item.Products = products;
                                                 count++;
                                                 if (count === items.length) {
                                                     res.json(buildResult("获取成功", { count: totalcount, items: items }, 1));
