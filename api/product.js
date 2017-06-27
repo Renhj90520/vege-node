@@ -1,6 +1,6 @@
 var models = require('../models');
 var buildResult = require('../utils/resultutil');
-
+var fs = require('fs');
 sequelize = models.sequelize;
 
 exports.getAllProducts = function (req, res) {
@@ -69,8 +69,8 @@ exports.deletePicture = function (req, res) {
     var path = req.params.picpath;
     models.pictures.destroy({ where: { path: { $like: '%' + path + '%' } } })
         .then(function () {
-            if (fs.exists('public/' + path)) {
-                fs.unlink('public/' + path, function (err) {
+            if (fs.exists('public/upload/' + path)) {
+                fs.unlink('public/upload/' + path, function (err) {
                     if (err) {
                         res.json(buildResult("删除失败：" + err.message, null, 0));
                     }

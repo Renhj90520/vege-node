@@ -26,7 +26,7 @@ exports.upload = function (req, res) {
                 var newPath = path.join(form.uploadDir, clock + type);
 
                 var fileInfo = {};
-                fileInfo.path = settings.server + newPath.replace('\\', '/');
+                fileInfo.Path = settings.server + newPath.replace('\\', '/');
                 fs.renameSync(files.upload.path, newPath, function (err) { });
                 res.json(buildResult("上传成功", fileInfo, 1));
             } else {
