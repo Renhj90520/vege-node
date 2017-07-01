@@ -13,12 +13,12 @@ exports.getAllProductInOrder = function (req, res) {
     var noshowRemove = req.query.noshowRemove;
 
     var sqlStr = 'select o.Id,Area,o.CancelTime,o.CreateTime,a.Name,o.OpenId,a.Phone,a.Province,o.State,a.Street,o.DeliveryCharge from orders o left join addresses a on a.id=o.addressid';
-    var countStr = 'select count(*) from orders o inner join addresses a on a.id=o.addressid'
+    var countStr = 'select count(*) as count from orders o inner join addresses a on a.id=o.addressid'
     sqlStr += " where 1=1 ";
     countStr += " where 1=1 ";
     var replacements = {};
     if (openid) {
-        sqlStr += "and openid=:openid ";
+        sqlStr += "and o.OpenId=:openid ";
         replacements.openid = openid;
     }
 
@@ -75,7 +75,7 @@ exports.getAllProductInOrder = function (req, res) {
                                                 item.Products = products;
                                                 count++;
                                                 if (count === items.length) {
-                                                    res.json(buildResult("获取成功", { count: totalcount, items: items }, 1));
+                                                    res.json(buildResult("获取成功", { count: totalcount[0].count, items: items }, 1));
                                                 }
                                             }
                                         }).caught(function (err) {
@@ -84,7 +84,7 @@ exports.getAllProductInOrder = function (req, res) {
                                                 item.Products = products;
                                                 count++;
                                                 if (count === items.length) {
-                                                    res.json(buildResult("获取成功", { count: totalcount, items: items }, 1));
+                                                    res.json(buildResult("获取成功", { count: totalcount[0].count, items: items }, 1));
                                                 }
                                             }
                                         });
@@ -92,7 +92,7 @@ exports.getAllProductInOrder = function (req, res) {
                             }).caught(function (err) {
                                 count++;
                                 if (count === items.length) {
-                                    res.json(buildResult("获取成功", { count: totalcount, items: items }, 1));
+                                    res.json(buildResult("获取成功", { count: totalcount[0].count, items: items }, 1));
                                 }
                             });
                     });
